@@ -5,9 +5,9 @@ use App\Http\Controllers\ProudectController;
 use App\Http\Controllers\CategoryController;
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
   Route::prefix('dashboard')->group(function () {
 
