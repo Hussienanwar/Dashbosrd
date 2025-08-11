@@ -49,14 +49,21 @@
                         </tr>
                         
                         <tr>
+                            <th class='w-25 bg-dark text-light'>Price</th>
+                            <td>{{ $proudect->price }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th class='w-25 bg-dark text-light'>Image</th>
+                            <td><img src="{{ asset('storage/proudect/'.$proudect->image)}}" width="100"> </td>
+                        </tr>
+                        
+
+                        <tr>
                             <th class='w-25 bg-dark text-light'>Description</th>
                             <td>{{ $proudect->description }}</td>
                         </tr>
                         
-                        <tr>
-                            <th class='w-25 bg-dark text-light'>Price</th>
-                            <td>{{ $proudect->price }}</td>
-                        </tr>
 
                         <tr>
                             <th class='w-25 bg-dark text-light'>Created At</th>

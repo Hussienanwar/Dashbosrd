@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
 class CategoryController extends Controller
@@ -30,20 +31,9 @@ class CategoryController extends Controller
         return view('dashboard.Categorys.create_Category');
     }
 
-    public function add_catg(Request $y){
-
-    $y->validate([
-        'name'        => 'required|string |min:3| max:20|regex:/^[\pL\s\-]+$/u'
-    ],
-    [
-        'name.required' => 'Please enter the Category name',
-        'name.string'   => 'The Category name must be a valid string',
-        'name.min'      => 'The Category name must be at least 3 characters',
-        'name.max'      => 'The Category name must not exceed 20 characters',
-        'name.regex'    => 'The Category name can only contain letters, spaces, and hyphens'
-
-    ]);
-        Category::create(['name' => $y->name]);
+    public function add_catg(CategoryRequest $y){
+        $data =$y->validated();
+        Category::create($data);
         return redirect()->back()->with('msg','Add Category is Success');
     }
     public function edit($id){

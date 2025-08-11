@@ -43,8 +43,8 @@
                         <tr>
                           <th>Id</th>
                           <th>Name</th>
-                          <th>Description</th>
                           <th>Price</th>
+                          <th>Description</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -56,8 +56,8 @@
                          <tr>
                            <td>{{ $proudect->id}}</td>
                            <td>{{ $proudect->name }}</td>
-                           <td>{{ $proudect->description }}</td>
                            <td>{{ $proudect->price }}</td>
+                           <td>{{ $proudect->description }}</td>
                            <td>
                             <a href="{{route('admin.proudect.show',[$proudect->id])}}" class="btn btn-info ">Details</a>
                             <a href="{{route('admin.proudect.edit',[$proudect->id])}}" class="btn btn-warning ">Edait</a>

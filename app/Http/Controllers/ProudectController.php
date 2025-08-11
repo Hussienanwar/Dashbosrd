@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProudectRequest;
 use Illuminate\Http\Request;
 use App\Models\proudect;
 use App\Models\Category;
@@ -35,7 +36,7 @@ class ProudectController extends Controller
         
     }
     
-    public function add(Request $x ){
+    public function add(ProudectRequest $x ){
         //$proudect=> props (id,name,price,description,category_id,created_it,updated_at)
         //$x => props (id,name,price,description,category_id,)
     // $proudect = new Proudect();
@@ -44,27 +45,15 @@ class ProudectController extends Controller
     // $proudect->description=$x->description; 
     // $proudect->category_id=$x->category; 
     // $proudect ->save();
-    $x->validate([
-        'name'        => 'required|string |min:3| max:20|regex:/^[\pL\s\-]+$/u',
-        'price'       => 'required|integer',
-        'description'       => 'nullable|max:30',
-    ], [
-        'name.required' => 'Please enter the product name',
-        'name.string'   => 'The product name must be a valid string',
-        'name.min'      => 'The product name must be at least 3 characters',
-        'name.max'      => 'The product name must not exceed 20 characters',
-        'name.regex'    => 'The product name can only contain letters, spaces, and hyphens',
-        'price.required'    => 'Please enter the product price',
-        'price.integer'     => 'The price must be an integer ',
-        'description.max'   => 'The description must not exceed 30 characters'
-]);
-
-    Proudect::create([
-        'name'        => $x->name,
-        'price'       => $x->price,
-        'description' => $x->description,
-        'category_id' => $x->category_id
-    ]);
+    
+    $data =$x->validated();
+    if($x->hasFile('image')){
+        $file=$x->file('image');
+        $filename =time()."_". $file->getClientOriginalName();
+        $file->storeAs('proudect',$filename,'public');
+    }
+    $data['image']=$filename;
+    Proudect::create($data);
     // Proudect::create($x);
     return redirect()->back()->with('msg','Add Proudect is Success');
 }

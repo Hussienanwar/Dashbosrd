@@ -1,5 +1,3 @@
-@extends('Dashboard.layout.app')
-@section('content')
 
         <!-- Bread crumb -->
         <div class="page-breadcrumb">
@@ -84,6 +82,22 @@
 
                     <div class="form-group row">
                       <label
+                        for="image"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Image</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="image"
+                          name="image"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label
                         for="description"
                         class="col-sm-3 text-end control-label col-form-label"
                         >Description</label
@@ -102,21 +116,7 @@
                       </div>
                     </div>
 
-                    {{-- <div class="form-group row">
-                      <label
-                        for="image"
-                        class="col-sm-3 text-end control-label col-form-label"
-                        >Image</label
-                      >
-                      <div class="col-sm-9">
-                        <input
-                          type="file"
-                          class="form-control"
-                          id="image"
-                          name="image"
-                        />
-                      </div>
-                    </div> --}}
+
 
                     <div class="form-group row">
                       <label

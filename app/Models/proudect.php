@@ -13,7 +13,7 @@ class proudect extends Model
         'name',
         'price',
         'description',
-        // 'image',
+        'image',
         'category_id'
     ];
 

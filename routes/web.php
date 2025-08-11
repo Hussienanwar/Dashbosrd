@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProudectController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,7 +23,6 @@ Route::get('/', function () {
 //    Route::get('/table', function () {
 //     return view('dashboard.student.table');
 //    })->name('student');
-
 
 
 Route::prefix('/admin')->name('admin.')->group(function(){
@@ -60,5 +60,32 @@ Route::controller(CategoryController::class)->name('category.')->group(function(
       Route::get('/archive/{id}/restore','restore')->whereNumber('id')->name('restore');
          });      
       });
+
+
+
+    Route::get('carts', [CartController::class, 'index'])->name('index');
+    Route::get('carts/{id}', [CartController::class, 'show'])->name('show');
+    Route::post('carts', [CartController::class, 'store'])->name('store');
+    Route::put('carts/{id}', [CartController::class, 'update'])->name('update');
+    Route::delete('carts/{id}', [CartController::class, 'destroy'])->name('destroy');
+
+    
+    Route::post('carts/{cartId}/items', [CartController::class, 'addItem'])->name('store');
+    Route::put('carts/items/{id}', [CartController::class, 'updateItem'])->name('update');
+    Route::delete('carts/items/{id}', [CartController::class, 'destroyItem'])->name('destroy');
+
+    
+    Route::get('orders', [OrderController::class, 'index'])->name('index');
+    Route::get('orders/{id}', [OrderController::class, 'show'])->name('show');
+    Route::post('orders', [OrderController::class, 'store'])->name('store');
+    Route::put('orders/{id}', [OrderController::class, 'update'])->name('update');
+    Route::delete('orders/{id}', [OrderController::class, 'destroy'])->name('destroy');
+
+    
+    Route::post('orders/{orderId}/items', [OrderController::class, 'addItem'])->name('store');
+    Route::put('orders/items/{id}', [OrderController::class, 'updateItem'])->name('update');
+    Route::delete('orders/items/{id}', [OrderController::class, 'destroyItem'])->name('destroy');
+
+
    });
 });
