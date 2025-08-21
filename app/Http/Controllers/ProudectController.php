@@ -6,6 +6,10 @@ use App\Http\Requests\ProudectRequest;
 use Illuminate\Http\Request;
 use App\Models\proudect;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\Review;
+use App\Models\User;
+
 class ProudectController extends Controller
 {
     
@@ -21,7 +25,51 @@ class ProudectController extends Controller
         $proudects = proudect::get();
         return view('dashboard.proudects.table_proudect',compact('proudects'));
     }  
+    
+    public function count()
+    {
+        $ordersCount = Order::count();
+        $categoriesCount = Category::count();
+        $productsCount = Proudect::count();
+        $usersCount = User::count();
 
+        return view('dashboard.index', compact('ordersCount', 'categoriesCount', 'productsCount', 'usersCount'));
+    }
+
+    public function product_category(){
+        $proudects = proudect::take(4)->get();
+        $categorys = Category::take(4)->get();
+        $topRatedProducts = proudect::with('reviews')
+            ->withAvg('reviews', 'rating')
+            ->having('reviews_avg_rating', '>', 0) // فقط المنتجات اللي عندها تقييم
+            ->orderByDesc('reviews_avg_rating')
+            ->take(4)
+            ->get();
+        return view('website.home',compact('proudects','categorys','topRatedProducts'));
+    }
+    
+    public function toprated(){
+        $proudects = proudect::get();
+        $topRatedProducts = proudect::with('reviews')
+            ->withAvg('reviews', 'rating')
+            ->having('reviews_avg_rating', '>', 0) // فقط المنتجات اللي عندها تقييم
+            ->orderByDesc('reviews_avg_rating')
+            ->take(10)
+            ->get();
+        return view('website.product.toprated',compact('proudects','topRatedProducts'));
+    }
+
+
+
+    public function allproducts(){
+        $proudects = proudect::get();
+        return view('website.product.allproduct',compact('proudects'));
+    }
+    
+    public function detailss($id){
+        $proudect = proudect::findOrFail($id);
+        return view('website.product.details',compact('proudect'));
+    }
 
 
     public function show($id){
@@ -70,6 +118,30 @@ public function edit($id){
     return view('dashboard.proudects.Proudect_actions.edit',compact('proudect','Categorys'));
     
 }
+
+
+
+public function addReview(Request $request, $proudectId) {
+    $request->validate([
+        'rating' => 'required|integer|min:1|max:5',
+        'comment' => 'nullable|string|max:500',
+    ]);
+
+    // تحديث التقييم لو موجود أو إنشاء جديد
+        Review::updateOrCreate(
+        [
+            'user_id' => auth()->id(),
+            'proudect_id' => $proudectId
+        ],
+        [
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]
+    );
+
+    return redirect()->back()->with('success', 'Review added successfully!');
+}
+
 
 
 public function update($id,Request $r){

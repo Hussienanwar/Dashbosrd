@@ -3,58 +3,119 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\proudect;
 use App\Models\Cart;
-use App\Models\CartItem;
-use App\Models\Proudect;
-use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
+    // Add product to cart
+    public function add($id)
+    {
+        $proudect = proudect::findOrFail($id);
+
+        $cartItem = Cart::where('proudect_id', $id)
+                        ->where('user_id', Auth::id())
+                        ->first();
+
+        if ($cartItem) {
+            $cartItem->quantity += 1;
+            $cartItem->save();
+        } else {
+            Cart::create([
+                'user_id' => Auth::id(),
+                'proudect_id' => $proudect->id,
+                'quantity' => 1
+            ]);
+        }
+
+        return redirect()->back()->with('msg', 'Product added to cart!');
+    }
+
+    // Show cart
     public function index()
     {
-        $carts = Cart::get();
-        return view('dashboard.carts.index', compact('carts'));
+        $carts = Cart::with('proudect')
+                    ->where('user_id', Auth::id())
+                    ->get();
+        return view('website.carts.index', compact('carts'));
     }
 
-  
 
+public function checkout()
+{
+    $carts = Cart::with('proudect')->where('user_id', Auth::id())->get();
 
-    public function add(Request $request)
+    if ($carts->isEmpty()) {
+        return redirect()->route('carts')->with('error', 'Your cart is empty!');
+    }
+
+    return view('website.checkout', compact('carts'));
+}
+
+    // Remove item from cart
+    public function remove($id)
     {
-        $request->validate([
-            'product_id' => 'required|exists:proudects,id',
-            'quantity' => 'required|integer|min:1'
-        ]);
+        Cart::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->delete();
 
-        $carts = Cart::firstOrCreate([
-            'user_id' => auth()->id()
-        ]);
-
-        $carts->items()->updateOrCreate(
-            ['product_id' => $request->product_id],
-            ['quantity' => DB::raw("quantity + {$request->quantity}")]
-        );
-
-        return redirect()->back()->with('msg', ' Done');
+        return redirect()->route('cart')->with('msg', 'Item removed from cart!');
     }
 
-    
-    // public function remove($itemId)
-    // {
-    //     CartItem::destroy($itemId);
-    //     return redirect()->back()->with('msg', ' Done');
-    // }
-
-     
-    // public function clear()
-    // {
-    //     $carts = Cart::where('user_id', auth()->id())->first();
-    //     if ($carts) {
-    //         $carts->items()->delete();
-    //     }
-    //     return redirect()->back()->with('msg', 'Done ');
-    // }
 
 
+
+
+    // Update quantity
+    public function update(Request $request, $id)
+    {
+        $request->validate(['quantity' => 'required|integer|min:1']);
+        $cartItem = Cart::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
+        return redirect()->route('cart')->with('msg', 'Cart updated!');
+    }
+
+public function updateQuantity(Request $request, $id)
+{
+    $item = Cart::findOrFail($id);
+
+    if ($request->action === 'increase') {
+        $item->quantity += 1;
+    } elseif ($request->action === 'decrease' && $item->quantity > 1) {
+        $item->quantity -= 1;
+    }
+
+    $item->save();
+
+    return redirect()->back()->with('success', 'Quantity updated successfully!');
+}
+
+    public function toggleCart($proudectid)
+{
+    $userId = auth()->id();
+
+    $cartItem = Cart::where('user_id', $userId)
+                    ->where('proudect_id', $proudectid)
+                    ->first();
+
+    if ($cartItem) {
+        $cartItem->delete();
+        $message = 'Product removed from cart';
+    } 
+    else {
+        Cart::create([
+            'user_id' => $userId,
+            'proudect_id' => $proudectid,
+            'quantity' => 1
+        ]);
+        $message = 'Product added to cart';
+    }
+
+    return redirect()->back()->with('msg',$message);
+}
 
 }

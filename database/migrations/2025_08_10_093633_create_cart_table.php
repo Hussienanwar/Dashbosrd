@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('cart', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
-            $table->decimal('total_price', 8, 2);
-            $table->string('status')->default('pending'); 
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('proudect_id');
+            $table->integer('quantity')->default(1);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('proudect_id')->references('id')->on('proudect')->onDelete('cascade');
         });
     }
 

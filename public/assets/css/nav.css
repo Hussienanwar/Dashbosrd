@@ -1,0 +1,45 @@
+.navbar {
+  font-size: 18px;  /* أكبر شوية */
+  font-weight: 500; /* لو عايز تخليها أوضح */
+  /* background-color: #000000c0 !important; */
+}
+.navbar img
+{
+  width: 100px;
+  height: 80px;
+}
+
+  .navbar .nav-link:hover {
+  color: red !important;
+}
+
+.navbar-nav .nav-link {
+    color: #04914f;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 5px 12px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: #fff;
+    border-color: #ccc;
+    background-color: transparent;
+  }
+
+
+
+  /* الأيقونات (Favorite, Cart, Profile, Search) */
+  .icon-hover {
+    color: #04914f;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    padding: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .icon-hover:hover {
+    color: #022963; /* أزرق bootstrap */
+    /* border-color: #fff; */
+    /* background-color: rgba(13, 110, 253, 0.1);  */
+  }

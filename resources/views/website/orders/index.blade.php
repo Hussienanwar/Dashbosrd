@@ -1,4 +1,4 @@
-@extends('Dashboard.layout.app')
+@extends('website.layouts.app')
 @section('content')
 <div class="page-breadcrumb">
     <div class="row">
@@ -15,28 +15,22 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>User</th>
                         <th>Status</th>
                         <th>Total Price</th>
                         <th>Created At</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($orders as $order)
                         <tr>
-                            <td>{{ $order->id }}</td>
                             <td>{{ $order->user->name ?? 'Guest' }}</td>
-                            <td>{{ $order->status }}</td>
-                            <td>{{ $order->total_price }}</td>
-                            <td>{{ $order->created_at }}</td>
+                            <td>{{ ucfirst($order->status) }}</td>
+                            <td>{{ $order->total }}</td> {{-- ✅ خليها total مش total_price --}}
+                            <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
                             <td>
-                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info btn-sm">View</a>
-                                <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST" style="display:inline-block">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
+                                {{-- لو حابب تعمل صفحة عرض تفاصيل --}}
+                                <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info btn-sm">View</a>
                             </td>
                         </tr>
                     @empty

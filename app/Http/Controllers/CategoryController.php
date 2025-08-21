@@ -20,7 +20,10 @@ class CategoryController extends Controller
         return view('dashboard.Categorys.table_Category',compact('categorys'));
     }  
 
-
+    public function allcategorys(){
+        $categorys = Category::get();
+        return view('website.allcategorys',compact('categorys'));
+    }
             
     public function show($id){
         $categorys = Category::find($id);

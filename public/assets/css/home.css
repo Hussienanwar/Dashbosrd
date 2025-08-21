@@ -1,0 +1,53 @@
+
+.carousel-item img {
+  height: 400px;   /* غير الرقم حسب المقاس اللي تحبه */
+  object-fit: contain; /* يخلي الصورة تتمدد وتقص بشكل منظم */
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: black; /* يخلي خلفية الأيقونة سودة */
+  border-radius: 50%;      /* يخليها مدورة شوية */
+  padding: 20px;           /* تكبر الأيقونة */
+}
+
+.card-title
+{
+    color: #04914f;
+
+}
+.product-img {
+  height: 250px;       /* كل الصور بنفس الارتفاع */
+  object-fit: cover;   /* يخلي الصورة تتظبط جوا الفريم من غير ما تتمدد */
+}
+.wishlist-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.wishlist-btn i {
+  color: black;
+  font-size: 22px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.wishlist-btn.active i {
+  color: red !important;
+  transform: scale(1.2);
+}
+
+
+.star-rating {
+    display: inline-block;
+    font-size: 1.8rem;
+    color: #a76f6f;
+    cursor: pointer;
+}
+
+.star-rating .star.hover,
+.star-rating .star.selected {
+    color: #ffbf00;
+}
+
+
+

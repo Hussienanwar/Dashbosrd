@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     protected $table = 'cart';
-    public function user()
-{
-    return $this->belongsTo(User::class);
-}
 
-public function product()
-{
-    return $this->belongsTo(Proudect::class, 'proudect_id');
-}
+    protected $fillable = [
+        'user_id',
+        'proudect_id',
+        'quantity'
+    ];
 
+    // العلاقة مع الموديل proudect
+    public function proudect()
+    {
+        return $this->belongsTo(proudect::class, 'proudect_id');
+    }
 }

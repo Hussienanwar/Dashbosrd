@@ -16,7 +16,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}" />
     <!-- Custom CSS -->
     <link href="{{asset('assets/css/style.min.css')}}" rel="stylesheet" />
+    
     <link href="{{asset('assets/css/dataTables.bootstrap4.css')}}" rel="stylesheet" />
+    <link href="{{asset('assets/css/app.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -80,14 +82,17 @@
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated"
                                 aria-labelledby="navbarDropdown">
 
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                <i class="mdi mdi-account me-1 ms-1"></i></a>
+                                <a class="dropdown-item" href="{{ route('settings') }}">
+                                <i class="mdi mdi-account me-1 ms-1">{{ auth()->user()->name }}</i></a>
                                 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('login')}}"><i class="fa fa-power-off me-1 ms-1"></i>
-                                    Logout</a>
-                               
+<a class="dropdown-item" href="#"
+   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+   <i class="fa fa-power-off me-1 ms-1"></i> Logout
+</a>
 
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
                             </ul>
                         </li>
                         <!-- ============================================================== -->
@@ -103,15 +108,39 @@
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-
                     <ul id="sidebarnav" class="pt-4">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('dash')}}"
-                                aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a>
-                        </li>
                         
+                                                <li class="sidebar-item">
+                                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('dash')}}"
+                                                        aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                                            class="hide-menu">Dashboard</span></a>
+                                                </li>
 
+                <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('home') }}"
+                            aria-expanded="false">
+                            <i class="mdi mdi-web"></i>
+                            <span class="hide-menu">Website</span>
+                        </a>
+                    </li>
+                        
+                        
+<li class="sidebar-item">
+    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.users') }}"
+       aria-expanded="false">
+       <i class="mdi mdi-account-multiple"></i>
+       <span class="hide-menu">Users</span>
+    </a>
+</li>
+
+<li class="sidebar-item">
+    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.orders') }}"
+       aria-expanded="false">
+       <i class="mdi mdi-cart-outline"></i>
+       <span class="hide-menu">Orders</span>
+    </a>
+</li>
+                        
                                     
     <li class="sidebar-item">
                 <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -123,7 +152,7 @@
                 class="hide-menu"> All Products </span></a>
             </li>
             <li class="sidebar-item">
-                a href="{{ route('admin.proudect.create_prod')}}" class="sidebar-link"><i class="mdi mdi-plus-box"></i><span
+                <a href="{{ route('admin.proudect.create_prod')}}" class="sidebar-link"><i class="mdi mdi-plus-box"></i><span
                 class="hide-menu"> Add Product </span></a>
             </li>
             <li class="sidebar-item">
@@ -165,10 +194,19 @@
             @yield('content')
 
             <!-- footer -->
-            <footer class="footer text-center">
-                All Rights Reserved by Matrix-admin. Designed and Developed by
-                <a href="https://www.wrappixel.com">WrapPixel</a>.
-            </footer>
+<footer class="footer text-center py-4 bg-dark text-light">
+  <p class="mb-2">
+    © 2025 | Designed & Developed by <strong>Hussien</strong> - Team <strong>Ra3d</strong> 🚀
+  </p>
+
+  <div class="d-flex justify-content-center gap-4">
+    <a href="https://www.facebook.com/hussein.anwar.719/" class="text-light fs-5 social-icon"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/hussein.anwar.719" class="text-light fs-5 social-icon"><i class="fab fa-instagram"></i></a>
+    <a href="https://github.com/Hussienanwar" class="text-light fs-5 social-icon"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/hussein-anwar-888303372/" class="text-light fs-5 social-icon"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://wa.me/+201202145780?text=" class="text-light fs-5 social-icon"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</footer>
             <!-- End footer -->
 
         </div>

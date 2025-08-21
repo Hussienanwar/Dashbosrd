@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
-            $table->foreignId('proudect_id')->constrained('proudect')->onDelete('cascade');
-            $table->integer('quantity')->default(1);
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->decimal('total', 10, 2);
+            $table->string('status')->default('pending');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

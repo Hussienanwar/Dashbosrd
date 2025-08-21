@@ -1,4 +1,5 @@
-
+@extends('dashboard.layout.app')
+@section('content')
         <!-- Bread crumb -->
         <div class="page-breadcrumb">
           <div class="row">
