@@ -140,6 +140,14 @@
        <span class="hide-menu">Orders</span>
     </a>
 </li>
+
+<li class="sidebar-item">
+    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.contacts') }}"
+       aria-expanded="false">
+       <i class="mdi mdi-email-outline"></i>
+       <span class="hide-menu">Contacts</span>
+    </a>
+</li>
                         
                                     
     <li class="sidebar-item">

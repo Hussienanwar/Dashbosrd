@@ -11,53 +11,38 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
-
-    const quantityInput = document.getElementById('quantity');
-    const increaseBtn = document.getElementById('increase');
-    const decreaseBtn = document.getElementById('decrease');
-
-    increaseBtn.addEventListener('click', () => {
-        quantityInput.value = parseInt(quantityInput.value) + 1;
-    });
-
-    decreaseBtn.addEventListener('click', () => {
-        if (parseInt(quantityInput.value) > 1) {
-            quantityInput.value = parseInt(quantityInput.value) - 1;
-        }
-    });
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const stars = document.querySelectorAll('.star-rating .star');
-    const ratingInput = document.getElementById('rating-value');
-    let selectedRating = 0;
+document.addEventListener("DOMContentLoaded", function () {
+    const stars = document.querySelectorAll(".star-rating .star");
+    const ratingValue = document.getElementById("rating-value");
 
     stars.forEach((star, index) => {
-        star.addEventListener('mouseover', () => {
-            highlightStars(index + 1);
-        });
+        star.addEventListener("click", function () {
+            let value = this.getAttribute("data-value");
+            ratingValue.value = value;
 
-        star.addEventListener('mouseout', () => {
-            highlightStars(selectedRating);
-        });
+            // Reset all stars
+            stars.forEach(s => s.classList.remove("selected"));
 
-        star.addEventListener('click', () => {
-            selectedRating = index + 1;
-            ratingInput.value = selectedRating;
-        });
-    });
-
-    function highlightStars(rating) {
-        stars.forEach((star, index) => {
-            if(index < rating) {
-                star.classList.add('selected');
-            } else {
-                star.classList.remove('selected');
+            // Add selected class up to clicked star
+            for (let i = 0; i <= index; i++) {
+                stars[i].classList.add("selected");
             }
         });
-    }
+
+        // Hover effect (اختياري عشان التجربة تكون أوضح)
+        star.addEventListener("mouseover", function () {
+            stars.forEach(s => s.classList.remove("hover"));
+            for (let i = 0; i <= index; i++) {
+                stars[i].classList.add("hover");
+            }
+        });
+
+        star.addEventListener("mouseout", function () {
+            stars.forEach(s => s.classList.remove("hover"));
+        });
+    });
 });
+
 
 
 

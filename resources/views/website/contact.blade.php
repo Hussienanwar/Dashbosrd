@@ -11,25 +11,35 @@
                 <div class="card-body">
                     <h5 class="card-title mb-3">Send Us a Message</h5>
 
-                    <form action="#" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Your Name</label>
-                            <input type="text" name="name" class="form-control" id="name" required>
-                        </div>
+                  @if(session('success'))
+                      <div class="alert alert-success">{{ session('success') }}</div>
+                  @endif
+                  
+                  <form action="{{ route('contact.store') }}" method="POST">
+                      @csrf
+                      <div class="mb-3">
+                          <label for="name">Name</label>
+                          <input type="text" name="name" class="form-control" required>
+                      </div>
+                  
+                      <div class="mb-3">
+                          <label for="email">Email</label>
+                          <input type="email" name="email" class="form-control" required>
+                      </div>
+                  
+                      <div class="mb-3">
+                          <label for="phone"> Phone Number</label>
+                          <input type="text" name="phone" class="form-control" required>
+                      </div>
+                  
+                     <div class="mb-3">
+                         <label for="message">Message</label>
+                         <textarea name="message" class="form-control" rows="4" required></textarea>
+                     </div>
+                     
+                      <button type="submit" class="btn btn-primary">Send</button>
+                  </form>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Your Email</label>
-                            <input type="email" name="email" class="form-control" id="email" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea name="message" id="message" rows="5" class="form-control" required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
                 </div>
             </div>
         </div>

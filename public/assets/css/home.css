@@ -37,17 +37,16 @@
 }
 
 
-.star-rating {
-    display: inline-block;
-    font-size: 1.8rem;
-    color: #a76f6f;
+.star {
+    font-size: 2rem;
     cursor: pointer;
+    color: #ccc; /* لون النجوم الفاضية */
+    transition: color 0.2s;
 }
 
-.star-rating .star.hover,
-.star-rating .star.selected {
-    color: #ffbf00;
+.star.selected,
+.star.hover {
+    color: gold; /* لون النجوم المختارة */
 }
-
 
 

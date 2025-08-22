@@ -7,6 +7,7 @@ use App\Http\Controllers\{
     CartController,
     CategoryController,
     CheckoutController,
+    ContactController,
     FavoriteController,
     OrderController,
     ProfileController, 
@@ -56,7 +57,10 @@ Route::middleware('auth')->group(function() {
     Route::get('/allcategorys', [CategoryController::class ,'allcategorys'])->name('allcategorys');
     Route::get('/categoreyproudect/{id}', [CategoryController::class ,'details'])->name('category.details');
     Route::get('/aboutus', fn() => view('website.product.aboutus'))->name('about');
+
     Route::get('/contact', fn() => view('website.contact'))->name('contact');
+    Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+
     Route::get('/details/{id}', [ProudectController::class ,'detailss'])->name('details');
     
 
@@ -72,6 +76,9 @@ Route::prefix('dashboard')->group(function () {
         Route::get('orders', [OrderController::class, 'showAll'])->name('orders');
         Route::get('/orders/show/{id}', [OrderController::class, 'showo'])->name('orders.show');
         Route::delete('/orders/delete/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+        Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
+        Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
 
         // Products
         Route::controller(ProudectController::class)->name('proudect.')->group(function(){

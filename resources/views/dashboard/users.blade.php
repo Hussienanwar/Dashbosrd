@@ -1,20 +1,32 @@
 @extends('Dashboard.layout.app')
 @section('content')
 
-
+        <!-- Bread crumb -->
         <div class="page-breadcrumb">
           <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
+              <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+              </div>
             </div>
           </div>
         </div>
-<div class="container-fluid py-2">
-    
+        <!-- End Bread crumb -->
+
+        <!-- Container fluid -->
+        <div class="container-fluid">
+          <!-- Start Page Content -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
                 <h2 class="mb-4 text-center">Users List</h2>
-            
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover text-center">
-            <thead class="table-dark">
+                  <div class="table-responsive">
+                    <table
+                      id="zero_config"
+                      class="table table-striped table-bordered"
+                    >
+            <thead class="">
                 <tr>
                     <th>#</th>
                     <th>Name</th>
@@ -38,7 +50,16 @@
                     </tr>
                 @endforelse
             </tbody>
-        </table>
-    </div>
-</div>
+                    </table>
+                    
+
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+          <!-- End Page Content -->
+
+        </div>
+        <!-- End Container fluid -->
 @endsection
