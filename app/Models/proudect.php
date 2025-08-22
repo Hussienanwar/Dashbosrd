@@ -16,6 +16,12 @@ class proudect extends Model
         'image',
         'category_id'
     ];
+
+
+    public function orderItems() {
+    return $this->hasMany(OrderItem::class, 'proudect_id');
+}
+
 public function reviews() {
     return $this->hasMany(Review::class);
 }

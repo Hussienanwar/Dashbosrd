@@ -10,4 +10,10 @@ class Category extends Model
      use SoftDeletes;
     protected $table ="categorys";
         protected $fillable =['name'];
+
+
+    public function proudects()
+{
+    return $this->hasMany(proudect::class);
+}
 }

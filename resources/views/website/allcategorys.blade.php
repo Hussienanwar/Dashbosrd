@@ -7,7 +7,9 @@
     @foreach ($categorys as  $category)
     <div class="card gap-3" style="width: 14rem;">
       <div class="card-body text-center ">
+      <a href="{{ route('category.details', $category->id) }}" class="btn">
         <h4 class="card-title">{{ $category->name }}</h4>
+      </a>
       </div>
     </div>
     @endforeach

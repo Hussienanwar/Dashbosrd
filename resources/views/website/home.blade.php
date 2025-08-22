@@ -106,9 +106,11 @@
     <div class="row gap-3">
         @foreach ($categorys as  $category)
         <div class="card gap-3" style="width: 14rem;">
+          <a href="{{ route('category.details', $category->id) }}" class="btn">
             <div class="card-body text-center ">
                 <h4 class="card-title">{{ $category->name }}</h4>
-            </div>
+              </div>
+            </a>
         </div>
         @endforeach
 </div>
@@ -131,63 +133,58 @@
       Our mission is to provide high-quality products at the best prices, 
       ensuring a simple and enjoyable shopping experience for everyone.
     </p>
-    <a href="#" class="btn btn-dark px-4">Read More</a>
+    <a href="{{ route('about') }}" class="btn btn-dark px-4">Read More</a>
   </div>
 </div>
 
 
 
 <section class="section container my-5">
-  <h2 class="text-center mb-4">Best-selling products</h2>
-  <!-- كروت المنتجات -->
-  <div class="row">
-       @foreach ($proudects as  $proudect)
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 position-relative shadow-sm">
-          
-@auth
-    @php
-        $isFavorite = \App\Models\Favorite::where('user_id', auth()->id())
-            ->where('proudect_id', $proudect->id)
-            ->exists();
-    @endphp
+    <h2 class="text-center mb-4">Best-selling Products</h2>
+    <div class="row">
+        @foreach ($topselling as $proudect)
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 position-relative shadow-sm">
+                    @auth
+                        @php
+                            $isFavorite = \App\Models\Favorite::where('user_id', auth()->id())
+                                ->where('proudect_id', $proudect->id)
+                                ->exists();
+                        @endphp
+                        <form action="{{ route('favorites.toggle', $proudect->id) }}" method="POST" class="d-inline favorite-form">
+                            @csrf
+                            <button type="submit" class="position-absolute top-0 end-0 m-2 wishlist-btn">
+                                <i class="bi {{ $isFavorite ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
+                            </button>
+                        </form>
+                    @endauth
 
-    <form action="{{ route('favorites.toggle', $proudect->id) }}" method="POST" class="d-inline favorite-form">
-        @csrf
-        <button type="submit" class="position-absolute top-0 end-0 m-2 wishlist-btn">
-            <i class="bi {{ $isFavorite ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
-        </button>
-    </form>
-@endauth
-          <!-- صورة المنتج -->
-          <a href="{{ route('details',$proudect->id) }}"><img src="{{ asset('storage/proudect/'.$proudect->image)}}" class="card-img-top product-img" alt="..."></a>
+                    <a href="{{ route('details',$proudect->id) }}">
+                        <img src="{{ asset('storage/proudect/'.$proudect->image)}}" class="card-img-top product-img" alt="{{ $proudect->name }}">
+                    </a>
 
-          <!-- تفاصيل المنتج -->
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ $proudect->name }}</h5>
-            <h6 class="card-title text-muted">{{ $proudect->price }} EGP</h6>
-@php
-    $inCart = \App\Models\Cart::where('user_id', auth()->id())
-                ->where('proudect_id', $proudect->id)
-                ->exists();
-@endphp
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ $proudect->name }}</h5>
+                        <h6 class="card-title text-muted">{{ $proudect->price }} EGP</h6>
 
-@auth
-    <a href="{{ route('cart.toggle', $proudect->id) }}" 
-       class="btn {{ $inCart ? 'btn-danger' : 'btn-success' }} mt-2">
-        {{ $inCart ? 'Remove from Cart' : 'Add to Cart' }}
-    </a>
-@endauth
-          </div>
-        </div>
-      </div>
-    @endforeach 
-</div>
-<div class="text-center">
-<a href="{{ route('allproducts') }}" class="btn btn-dark ">All Products</a>
-</div>
+                        @auth
+                            @php
+                                $inCart = \App\Models\Cart::where('user_id', auth()->id())
+                                    ->where('proudect_id', $proudect->id)
+                                    ->exists();
+                            @endphp
+                            <a href="{{ route('cart.toggle', $proudect->id) }}" 
+                               class="btn {{ $inCart ? 'btn-danger' : 'btn-success' }} mt-2">
+                                {{ $inCart ? 'Remove from Cart' : 'Add to Cart' }}
+                            </a>
+                            
+                        @endauth
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </section>
-
 
 <div class="card text-bg-dark">
   <img src="{{ asset('assets/images/header.png') }}" class="card-img" alt="Special Offer">

@@ -79,6 +79,9 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.archive')->with('msg','Restore Proudect is Success');
     }
 
-
+     public function details($id){
+    $Category = Category::with('proudects')->findOrFail($id);
+    return view('website.categoreyproudect', compact('Category'));
+    }
 
 }

@@ -94,7 +94,7 @@ public function updateQuantity(Request $request, $id)
     return redirect()->back()->with('success', 'Quantity updated successfully!');
 }
 
-    public function toggleCart($proudectid)
+  public function toggleCart(Request $request, $proudectid)
 {
     $userId = auth()->id();
 
@@ -108,14 +108,15 @@ public function updateQuantity(Request $request, $id)
     } 
     else {
         Cart::create([
-            'user_id' => $userId,
+            'user_id'     => $userId,
             'proudect_id' => $proudectid,
-            'quantity' => 1
+            'quantity'    => $request->input('quantity', 1), 
         ]);
         $message = 'Product added to cart';
     }
 
-    return redirect()->back()->with('msg',$message);
+    return redirect()->back()->with('msg', $message);
 }
+
 
 }

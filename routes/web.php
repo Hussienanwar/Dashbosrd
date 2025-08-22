@@ -9,7 +9,7 @@ use App\Http\Controllers\{
     CheckoutController,
     FavoriteController,
     OrderController,
-    ProfileController,
+    ProfileController, 
     ProudectController,
     SettingsController
 };
@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/cart/{item}/update', [CartController::class, 'updateQuantity'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/cart/toggle/{productId}', [CartController::class, 'toggleCart'])->name('cart.toggle');
+    Route::post('/cart/toggle/{productId}', [CartController::class, 'toggleCart'])->name('cart.toggle');
     Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
     Route::get('/order', [OrderController::class, 'index'])->name('order');
@@ -53,6 +54,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/allproduct', [ProudectController::class ,'allproducts'])->name('allproducts');
     Route::get('/allcategorys', [CategoryController::class ,'allcategorys'])->name('allcategorys');
+    Route::get('/categoreyproudect/{id}', [CategoryController::class ,'details'])->name('category.details');
     Route::get('/aboutus', fn() => view('website.product.aboutus'))->name('about');
     Route::get('/contact', fn() => view('website.contact'))->name('contact');
     Route::get('/details/{id}', [ProudectController::class ,'detailss'])->name('details');

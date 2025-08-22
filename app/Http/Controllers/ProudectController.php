@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProudectRequest;
 use Illuminate\Http\Request;
 use App\Models\proudect;
@@ -9,7 +9,6 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Review;
 use App\Models\User;
-
 class ProudectController extends Controller
 {
     
@@ -45,7 +44,13 @@ class ProudectController extends Controller
             ->orderByDesc('reviews_avg_rating')
             ->take(4)
             ->get();
-        return view('website.home',compact('proudects','categorys','topRatedProducts'));
+                $topselling = proudect::with('reviews')
+        ->withSum('orderItems as total_sold', 'quantity')
+        ->having('total_sold', '>', 0)
+        ->orderByDesc('total_sold')
+        ->take(10)
+        ->get();
+        return view('website.home',compact('proudects','categorys','topRatedProducts','topselling'));
     }
     
     public function toprated(){
@@ -58,6 +63,8 @@ class ProudectController extends Controller
             ->get();
         return view('website.product.toprated',compact('proudects','topRatedProducts'));
     }
+
+
 
 
 
