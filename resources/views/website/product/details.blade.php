@@ -97,7 +97,7 @@
     <h5 class="mb-3">Customer Reviews:</h5>
     @forelse($proudect->reviews->take(5) as $review) <!-- آخر 5 تقييمات فقط -->
         <div class="border rounded p-2 mb-2">
-            <strong>{{ $review->user->name ?? 'Anonymous' }}</strong>
+            <strong>{{ $review->user->name }}</strong>
             <div class="mb-1">
                 @for($i = 1; $i <= 5; $i++)
                     @if($i <= $review->rating)

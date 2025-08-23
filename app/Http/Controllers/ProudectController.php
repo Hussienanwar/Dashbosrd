@@ -59,7 +59,7 @@ class ProudectController extends Controller
             ->withAvg('reviews', 'rating')
             ->having('reviews_avg_rating', '>', 0) // فقط المنتجات اللي عندها تقييم
             ->orderByDesc('reviews_avg_rating')
-            ->take(10)
+            ->take(20)
             ->get();
         return view('website.product.toprated',compact('proudects','topRatedProducts'));
     }

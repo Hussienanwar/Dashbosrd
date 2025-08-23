@@ -60,7 +60,6 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/contact', fn() => view('website.contact'))->name('contact');
     Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
-
     Route::get('/details/{id}', [ProudectController::class ,'detailss'])->name('details');
     
 
