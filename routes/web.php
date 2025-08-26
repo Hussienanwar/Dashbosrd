@@ -74,7 +74,8 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/dashboard/users', [AdminController::class, 'index'])->name('users');
         Route::get('orders', [OrderController::class, 'showAll'])->name('orders');
         Route::get('/orders/show/{id}', [OrderController::class, 'showo'])->name('orders.show');
-        Route::delete('/orders/delete/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+        Route::patch('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])
+         ->name('orders.updateStatus');
 
         Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
         Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');

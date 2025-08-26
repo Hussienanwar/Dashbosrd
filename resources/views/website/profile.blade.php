@@ -25,7 +25,7 @@
             <h5 class="card-title mb-3">Your Orders</h5>
     <div class="mb-4 border rounded p-3">
     @foreach($orders as $order)
-    <h6>Order #{{ $order->id }} - <span class="text-success">{{ ucfirst($order->status) }}</span> /
+    <h6> <span class="text-success">{{ ucfirst($order->status) }}</span> /
     <small>Date: {{ $order->created_at->format('d M, Y') }}</small>/
     <strong>Total:</strong> ${{ $order->total }}
     </h6>

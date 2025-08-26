@@ -22,18 +22,9 @@
             <div class="card-body text-center">
               <h5 class="card-title">{{ $proudect->name }}</h5>
               <h6 class="card-subtitle text-muted">{{ $proudect->price }} EGP</h6>
-              @php
-    $inCart = \App\Models\Cart::where('user_id', auth()->id())
-                ->where('proudect_id', $proudect->id)
-                ->exists();
-@endphp
-
-@auth
-    <a href="{{ route('cart.toggle', $proudect->id) }}" 
-       class="btn {{ $inCart ? 'btn-danger' : 'btn-success' }} mt-2">
-        {{ $inCart ? 'Remove from Cart' : 'Add to Cart' }}
-    </a>
-@endauth
+          @auth
+            <livewire:cart :proudect="$proudect" />
+          @endauth
             </div>
           </div>
         </div>

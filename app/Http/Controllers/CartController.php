@@ -94,29 +94,7 @@ public function updateQuantity(Request $request, $id)
     return redirect()->back()->with('success', 'Quantity updated successfully!');
 }
 
-  public function toggleCart(Request $request, $proudectid)
-{
-    $userId = auth()->id();
 
-    $cartItem = Cart::where('user_id', $userId)
-                    ->where('proudect_id', $proudectid)
-                    ->first();
-
-    if ($cartItem) {
-        $cartItem->delete();
-        $message = 'Product removed from cart';
-    } 
-    else {
-        Cart::create([
-            'user_id'     => $userId,
-            'proudect_id' => $proudectid,
-            'quantity'    => $request->input('quantity', 1), 
-        ]);
-        $message = 'Product added to cart';
-    }
-
-    return redirect()->back()->with('msg', $message);
-}
 
 
 }

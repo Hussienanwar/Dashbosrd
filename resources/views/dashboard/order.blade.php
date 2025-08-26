@@ -49,21 +49,37 @@
                         <td>
                             @if($order->status == 'pending')
                                 <span class="badge bg-warning text-dark">Pending</span>
-                            @elseif($order->status == 'completed')
-                                <span class="badge bg-success">Completed</span>
+                            @elseif($order->status == 'Accept')
+                                <span class="badge bg-success">Accept</span>
                             @elseif($order->status == 'canceled')
                                 <span class="badge bg-danger">Canceled</span>
                             @endif
                         </td>
                         <td>{{ $order->created_at->format('d M Y H:i') }}</td>
-                        <td>
-                             <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info btn-sm">View</a>
-                            <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
+                     <td>
+                      <div class="text-center">
+                        <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info btn-sm  mb-2">View</a>
+                      </div>
+                     
+                         <div class="d-flex gap-2 mt-1 text-center">
+                             <!-- زر قبول الأوردر -->
+                             <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                                 @csrf
+                                 @method('PATCH')
+                                 <input type="hidden" name="status" value="Accept">
+                                 <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                             </form>
+                     
+                             <!-- زر إلغاء الأوردر -->
+                             <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                                 @csrf
+                                 @method('PATCH')
+                                 <input type="hidden" name="status" value="canceled">
+                                 <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                             </form>
+                         </div>
+                     </td>
+
                     </tr>
                 @empty
                     <tr>

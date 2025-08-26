@@ -88,10 +88,17 @@ class OrderController extends Controller
     }
 
     // الأدمن يمسح أوردر
-    public function destroy($id)
-    {
-        $order = Order::findOrFail($id);
-        $order->delete();
-        return redirect()->route('admin.orders')->with('msg', 'Order deleted successfully!');
-    }
+public function updateStatus(Request $request, $id)
+{
+    $order = Order::findOrFail($id);
+
+    $request->validate([
+        'status' => 'required|in:Accept,canceled',
+    ]);
+
+    $order->status = $request->status;
+    $order->save();
+
+    return redirect()->route('admin.orders')->with('msg', 'Order status updated successfully!');
+}
 }

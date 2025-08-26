@@ -53,9 +53,9 @@
         <div class="card h-100 position-relative shadow-sm">
           
 
-@auth
-    <livewire:favorite-toggle :proudect="$proudect" />
-@endauth
+          @auth
+              <livewire:favorite-toggle :proudect="$proudect" />
+          @endauth
 
           <!-- صورة المنتج -->
           <a href="{{ route('details',$proudect->id) }}"><img src="{{ asset('storage/proudect/'.$proudect->image)}}" class="card-img-top product-img" alt="..."></a>
@@ -64,20 +64,9 @@
           <div class="card-body text-center">
             <h5 class="card-title">{{ $proudect->name }}</h5>
             <h6 class="card-title text-muted">{{ $proudect->price }} EGP</h6>
-
-@php
-    $inCart = \App\Models\Cart::where('user_id', auth()->id())
-                ->where('proudect_id', $proudect->id)
-                ->exists();
-@endphp
-
-@auth
-    <a href="{{ route('cart.toggle', $proudect->id) }}" 
-       class="btn {{ $inCart ? 'btn-danger' : 'btn-success' }} mt-2">
-        {{ $inCart ? 'Remove from Cart' : 'Add to Cart' }}
-    </a>
-@endauth
-
+          @auth
+            <livewire:cart :proudect="$proudect" />
+          @endauth
           </div>
         </div>
       </div>
@@ -137,9 +126,9 @@
             <div class="col-md-3 mb-4">
                 <div class="card h-100 position-relative shadow-sm">
 
-         @auth
+         {{-- @auth
              <livewire:favorite-toggle :proudect="$proudect" />
-         @endauth
+         @endauth --}}
 
                     <a href="{{ route('details',$proudect->id) }}">
                         <img src="{{ asset('storage/proudect/'.$proudect->image)}}" class="card-img-top product-img" alt="{{ $proudect->name }}">
@@ -148,19 +137,10 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $proudect->name }}</h5>
                         <h6 class="card-title text-muted">{{ $proudect->price }} EGP</h6>
+          {{-- @auth
+            <livewire:cart :proudect="$proudect" />
+          @endauth --}}
 
-                        @auth
-                            @php
-                                $inCart = \App\Models\Cart::where('user_id', auth()->id())
-                                    ->where('proudect_id', $proudect->id)
-                                    ->exists();
-                            @endphp
-                            <a href="{{ route('cart.toggle', $proudect->id) }}" 
-                               class="btn {{ $inCart ? 'btn-danger' : 'btn-success' }} mt-2">
-                                {{ $inCart ? 'Remove from Cart' : 'Add to Cart' }}
-                            </a>
-                            
-                        @endauth
                     </div>
                 </div>
             </div>
@@ -188,9 +168,9 @@
             <div class="card h-100 position-relative shadow-sm">
               
 
-         @auth
+         {{-- @auth
              <livewire:favorite-toggle :proudect="$proudect" />
-         @endauth
+         @endauth --}}
 
               <a href="{{ route('details',$proudect->id) }}">
                 <img src="{{ asset('storage/proudect/'.$proudect->image)}}" class="card-img-top product-img" alt="{{ $proudect->name }}">
@@ -210,18 +190,9 @@
                         @endif
                     @endfor
                 </div>
-@php
-    $inCart = \App\Models\Cart::where('user_id', auth()->id())
-                ->where('proudect_id', $proudect->id)
-                ->exists();
-@endphp
-
-@auth
-    <a href="{{ route('cart.toggle', $proudect->id) }}" 
-       class="btn {{ $inCart ? 'btn-danger' : 'btn-success' }} mt-2">
-        {{ $inCart ? 'Remove from Cart' : 'Add to Cart' }}
-    </a>
-@endauth
+          {{-- @auth
+            <livewire:cart :proudect="$proudect" />
+          @endauth --}}
 
               </div>
             </div>
