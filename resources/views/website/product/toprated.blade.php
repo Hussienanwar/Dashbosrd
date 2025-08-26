@@ -12,20 +12,9 @@
           <div class="col-md-3 mb-4">
             <div class="card h-100 position-relative shadow-sm">
               
-@auth
-    @php
-        $isFavorite = \App\Models\Favorite::where('user_id', auth()->id())
-            ->where('proudect_id', $proudect->id)
-            ->exists();
-    @endphp
-
-    <form action="{{ route('favorites.toggle', $proudect->id) }}" method="POST" class="d-inline favorite-form">
-        @csrf
-        <button type="submit" class="position-absolute top-0 end-0 m-2 wishlist-btn">
-            <i class="bi {{ $isFavorite ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
-        </button>
-    </form>
-@endauth
+         @auth
+             <livewire:favorite-toggle :proudect="$proudect" />
+         @endauth
 
               <a href="{{ route('details',$proudect->id) }}">
                 <img src="{{ asset('storage/proudect/'.$proudect->image)}}" class="card-img-top product-img" alt="{{ $proudect->name }}">

@@ -9,6 +9,9 @@
 </div>
 
 <div class="container py-5">
+        @if(session()->has('msg'))
+            <div class="alert alert-success text-center">{{ session('msg') }}</div>
+        @endif
     <!-- Product Details Section -->
     <section class="mb-5">
         <div class="row">
@@ -27,44 +30,13 @@
                  <h4 class="text-success mb-4">{{ $proudect->description }}</h4>
 
                  <!-- Quantity Selector -->
-<div class="d-flex flex-column align-items-center gap-3 mb-3">
-    @auth
-        {{-- تحديد الكمية --}}
-        <form action="{{ route('cart.toggle', $proudect->id) }}" method="POST" class="d-flex align-items-center gap-2">
-            @csrf
-            <div class="input-group" style="width: 150px;">
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="this.nextElementSibling.stepDown()">-</button>
-                <input type="number" name="quantity" value="1" min="1" class="form-control text-center">
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="this.previousElementSibling.stepUp()">+</button>
+            <div class="d-flex flex-column align-items-center gap-3 mb-3">
+              @auth
+                      {{-- تحديد الكمية --}}
+              @livewire('product-details', ['proudect' => $proudect])
+                      {{-- المفضلة --}}
+              @endauth
             </div>
-
-            @php
-                $inCart = \App\Models\Cart::where('user_id', auth()->id())
-                            ->where('proudect_id', $proudect->id)
-                            ->exists();
-            @endphp
-
-            <button type="submit" class="btn {{ $inCart ? 'btn-danger' : 'btn-success' }}">
-                {{ $inCart ? 'Remove from Cart' : 'Add to Cart' }}
-            </button>
-        </form>
-
-        {{-- المفضلة --}}
-        @php
-            $isFavorite = \App\Models\Favorite::where('user_id', auth()->id())
-                ->where('proudect_id', $proudect->id)
-                ->exists();
-        @endphp
-
-        <form action="{{ route('favorites.toggle', $proudect->id) }}" method="POST" class="d-inline">
-            @csrf
-            <button type="submit" class="btn btn-light border">
-                <i class="bi {{ $isFavorite ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
-                {{ $isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-            </button>
-        </form>
-    @endauth
-</div>
 
 
 

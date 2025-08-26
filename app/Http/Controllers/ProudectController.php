@@ -146,7 +146,7 @@ public function addReview(Request $request, $proudectId) {
         ]
     );
 
-    return redirect()->back()->with('success', 'Review added successfully!');
+    return redirect()->back()->with('msg', 'Review added successfully!');
 }
 
 

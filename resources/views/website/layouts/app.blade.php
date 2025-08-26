@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/nav.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/home.css')}}">
+    @livewireStyles
 </head>
 
 <body>
@@ -205,7 +206,7 @@
     <!-- End Wrapper -->
 
     <!-- All Jquery -->
-    
+    @livewireScripts
     <!-- ============================================================== -->
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <!-- Bootstrap tether Core JavaScript -->

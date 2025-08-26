@@ -92,6 +92,6 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $order->delete();
-        return redirect()->route('admin.orders')->with('success', 'Order deleted successfully!');
+        return redirect()->route('admin.orders')->with('msg', 'Order deleted successfully!');
     }
 }
