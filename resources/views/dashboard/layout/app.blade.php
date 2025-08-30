@@ -82,8 +82,11 @@
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated"
                                 aria-labelledby="navbarDropdown">
 
-                                <a class="dropdown-item" href="{{ route('settings') }}">
+                                <a class="dropdown-item" href="{{ route('profile') }}">
                                 <i class="mdi mdi-account me-1 ms-1">{{ auth()->user()->name }}</i></a>
+
+                                <a class="dropdown-item" href="{{ route('settings') }}">
+                                <i class="mdi mdi-settings me-1 ms-1">Settings</i></a>
                                 
 <a class="dropdown-item" href="#"
    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

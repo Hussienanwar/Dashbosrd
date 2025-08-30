@@ -37,41 +37,41 @@
                       id="zero_config"
                       class="table table-striped table-bordered"
                     >
-                    <tbody>
+                    <tbody >
                         <tr>
-                          <th class='w-25 bg-dark text-light'>Id</th>
+                          <th class='w-25 bg-dark text-light text-center'>Id</th>
                           <td>{{ $proudect->id}}</td>
                         </tr>
                         
                         <tr>
-                            <th class='w-25 bg-dark text-light'>Name</th>
+                            <th class='w-25 bg-dark text-light text-center'>Name</th>
                             <td>{{ $proudect->name }}</td>
                         </tr>
                         
                         <tr>
-                            <th class='w-25 bg-dark text-light'>Price</th>
+                            <th class='w-25 bg-dark text-light text-center'>Price</th>
                             <td>{{ $proudect->price }}</td>
                         </tr>
                         
                         <tr>
-                            <th class='w-25 bg-dark text-light'>Image</th>
+                            <th class='w-25 bg-dark text-light text-center'>Image</th>
                             <td><img src="{{ asset('storage/proudect/'.$proudect->image)}}" width="100"> </td>
                         </tr>
                         
 
                         <tr>
-                            <th class='w-25 bg-dark text-light'>Description</th>
+                            <th class='w-25 bg-dark text-light text-center'>Description</th>
                             <td>{{ $proudect->description }}</td>
                         </tr>
                         
 
                         <tr>
-                            <th class='w-25 bg-dark text-light'>Created At</th>
+                            <th class='w-25 bg-dark text-light text-center'>Created At</th>
                             <td>{{ $proudect->created_at?? 'No Data'}}</td>
                         </tr>
 
                         <tr>
-                            <th class='w-25 bg-dark text-light'>Updated At</th>
+                            <th class='w-25 bg-dark text-light text-center'>Updated At</th>
                             <td>{{ $proudect->updated_at ?? 'No Data'}}</td>
                         </tr>
                         

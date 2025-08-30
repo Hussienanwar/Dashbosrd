@@ -25,8 +25,9 @@
          @endauth
 
             <!-- صورة المنتج -->
+            <a href="{{ route('details',$proudect->id) }}">
             <img src="{{ asset('storage/proudect/'.$proudect->image)}}" class="card-img-top product-img" alt="{{ $proudect->name }}">
-
+            </a>
             <!-- تفاصيل المنتج -->
             <div class="card-body text-center">
               <h5 class="card-title">{{ $proudect->name }}</h5>

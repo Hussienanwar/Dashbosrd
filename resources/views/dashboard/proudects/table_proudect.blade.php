@@ -53,13 +53,13 @@
                           
                          
                          @forelse( $proudects as $proudect )
-                         <tr>
+                         <tr class="text-center">
                            <td>{{ $proudect->id}}</td>
                            <td>{{ $proudect->name }}</td>
                            <td>{{ $proudect->price }}</td>
                            <td>{{ $proudect->description }}</td>
                            <td>
-                            <a href="{{route('admin.proudect.show',[$proudect->id])}}" class="btn btn-info ">Details</a>
+                            <a href="{{route('admin.proudect.show',[$proudect->id])}}" class="btn btn-primary ">Details</a>
                             <a href="{{route('admin.proudect.edit',[$proudect->id])}}" class="btn btn-warning ">Edait</a>
                            <form method="post" class="d-inline-block" 
                            action="{{route ('admin.proudect.delete',[$proudect->id])}}">

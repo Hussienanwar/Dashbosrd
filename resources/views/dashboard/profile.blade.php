@@ -1,63 +1,48 @@
 @extends('Dashboard.layout.app')
 @section('content')
 
-        <div class="page-breadcrumb">
-          <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
+
+<div class="container-fluid">
+<section class="section container my-4">
+<div class="container py-2">
+    <div class="row">
+        <!-- User Info -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">{{ auth()->user()->name }}</h4>
+                    <p class="card-text">{{ auth()->user()->email }}</p>
+                    <a href="{{ route('settings') }}" class="btn btn-warning mt-3 w-100">
+                        Account Settings
+                    </a>
+                </div>
             </div>
-          </div>
         </div>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-center mb-4">Account Settings</h3>
-
-                    @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-
-                    @if(session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
-                    @endif
-
-                    <form action="{{ route('settings.update') }}" method="POST">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" name="name" class="form-control" id="name" value="{{ auth()->user()->name }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="email" value="{{ auth()->user()->email }}" required>
-                        </div>
-
-                        <!-- لو عايز تضيف تغيير كلمة السر -->
-                        
-                        <div class="mb-3">
-                            <label for="password" class="form-label">New Password</label>
-                            <input type="password" name="password" class="form-control" id="password">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                            <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
-                        </div>
-                        
-
-                        <button type="submit" class="btn btn-primary w-100">Update Settings</button>
-                    </form>
-
-
+        <!-- Orders -->
+        <div class="col-md-8 mb-4">
+            <div class="card shadow-sm h-100">
+            <div class="card-body">
+            <h5 class="card-title mb-3">Your Orders</h5>
+    <div class="mb-4 border rounded p-3">
+    @foreach($orders as $order)
+    <h6>Orders#{{ $loop->iteration }} <span class="{{ $order->status == 'Accept' ? 'text-success' : ($order->status == 'canceled' ? 'text-danger' : 'text-warning') }}">
+    {{ ucfirst($order->status) }}
+</span>/
+    <u>Date: {{ $order->created_at->format('d M, Y') }}</u>/
+    <strong>Total:</strong> ${{ $order->total }}
+    </h6>
+@endforeach
                 </div>
             </div>
         </div>
     </div>
 </div>
+</section>
+</div>
+
+
+
+
 
 @endsection

@@ -12,10 +12,15 @@ public function index()
 {
     
     $orders = Order::with('proudect') // eager load المنتجات
-                   ->where('user_id', Auth::id())
-                   ->orderBy('created_at', 'asc')
-                   ->get();
-    return view('website.profile', compact('orders'));}
+    ->where('user_id', Auth::id())
+    ->orderBy('created_at', 'asc')
+    ->get();
+    if(auth()->user()->role!=1){
+        return view('website.profile', compact('orders'));
+    }
+    return view('dashboard.profile', compact('orders'));
+}
+    
     
 }
 

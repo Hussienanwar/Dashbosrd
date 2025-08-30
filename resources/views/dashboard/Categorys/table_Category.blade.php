@@ -48,12 +48,11 @@
                       </thead>
                       <tbody>
                         @forelse ( $categorys as $category )
-                        <tr>
+                        <tr class="text-center">
                           <td>{{$category->id }} </td>
                           <td>{{$category->name }}</td>
-                          
-                          <td>
-                            <a href="{{route('admin.category.details',$category->id)}}" class="btn btn-info">Details</a>
+                          <td class="w-50">
+                            <a href="{{route('admin.category.details',$category->id)}}" class="btn btn-primary">Details</a>
                             <a href="{{route('admin.category.edit',$category->id)}}" class="btn btn-warning ">Edait</a>
                             <form method="post" class="d-inline-block" 
                             action="{{route ('admin.category.delete',[$category->id])}}">

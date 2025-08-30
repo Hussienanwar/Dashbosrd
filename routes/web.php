@@ -14,8 +14,7 @@ use App\Http\Controllers\{
     ProudectController,
     SettingsController
 };
-
-
+use App\Models\Contact;
 
 Route::get('/', [ProudectController::class, 'product_category'])->name('home');
 
@@ -75,10 +74,12 @@ Route::prefix('dashboard')->group(function () {
         Route::get('orders', [OrderController::class, 'showAll'])->name('orders');
         Route::get('/orders/show/{id}', [OrderController::class, 'showo'])->name('orders.show');
         Route::patch('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])
-         ->name('orders.updateStatus');
-
+        ->name('orders.updateStatus');
+        
         Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
         Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+        Route::patch('/admin/contacts/{id}/status', [ContactController::class, 'updateStatus'])
+         ->name('contacts.updateStatus');
 
         // Products
         Route::controller(ProudectController::class)->name('proudect.')->group(function(){

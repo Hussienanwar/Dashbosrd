@@ -64,7 +64,7 @@
       <div class="card h-100 shadow-sm">
         <img src="{{asset('assets/images/team/hussien.jpg')}}" class="card-img-top" alt="Hussien Anwar">
         <div class="card-body">
-          <h5 class="card-title">Hussien</h5>
+          <h5 class="card-title">Hussien Anwar</h5>
           <p class="text-muted">Backend Developer <br> & Frontend Developer</p>
         </div>
       </div>

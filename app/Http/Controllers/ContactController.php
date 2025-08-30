@@ -35,4 +35,12 @@ class ContactController extends Controller
            return redirect()->back()->with('success', 'Message deleted successfully ');
     }
 
+    public function updateStatus(Request $request, $id)
+{
+    $contact = Contact::findOrFail($id);
+    $contact->status = $request->status;
+    $contact->save();
+    return redirect()->route('admin.contacts')->with('msg', 'Message Marked as read');
+}
+
 }

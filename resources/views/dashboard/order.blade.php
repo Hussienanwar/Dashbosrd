@@ -1,16 +1,7 @@
 @extends('Dashboard.layout.app')
 @section('content')
 
-        <!-- Bread crumb -->
-        <div class="page-breadcrumb">
-          <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
-              <div class="ms-auto text-end">
-                <nav aria-label="breadcrumb">
-              </div>
-            </div>
-          </div>
-        </div>
+
         <!-- End Bread crumb -->
 
         <!-- Container fluid -->
@@ -48,37 +39,42 @@
                         <td>${{ number_format($order->total, 2) }}</td>
                         <td>
                             @if($order->status == 'pending')
-                                <span class="badge bg-warning text-dark">Pending</span>
+                              <h4><span class="badge bg-warning text-dark">Pending</span></h4>
                             @elseif($order->status == 'Accept')
-                                <span class="badge bg-success">Accept</span>
+                              <h4><span class="badge bg-success">Accept</span></h4>
                             @elseif($order->status == 'canceled')
-                                <span class="badge bg-danger">Canceled</span>
+                              <h4><span class="badge bg-danger">Canceled</span></h4>
                             @endif
                         </td>
                         <td>{{ $order->created_at->format('d M Y H:i') }}</td>
-                     <td>
-                      <div class="text-center">
-                        <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info btn-sm  mb-2">View</a>
-                      </div>
-                     
-                         <div class="d-flex gap-2 mt-1 text-center">
-                             <!-- زر قبول الأوردر -->
-                             <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                                 @csrf
-                                 @method('PATCH')
-                                 <input type="hidden" name="status" value="Accept">
-                                 <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                             </form>
-                     
-                             <!-- زر إلغاء الأوردر -->
-                             <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                                 @csrf
-                                 @method('PATCH')
-                                 <input type="hidden" name="status" value="canceled">
-                                 <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
-                             </form>
-                         </div>
-                     </td>
+<td>
+    <!-- زر عرض الأوردر -->
+    <div class="text-center mb-2">
+        <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info btn-sm w-100">
+            View
+        </a>
+    </div>
+
+    <!-- أزرار Accept و Cancel -->
+    <div class="d-flex justify-content-center gap-2">
+        <!-- زر قبول الأوردر -->
+        <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="w-50">
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="status" value="completed">
+            <button type="submit" class="btn btn-success w-100">Accept</button>
+        </form>
+
+        <!-- زر إلغاء الأوردر -->
+        <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="w-50">
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="status" value="canceled">
+            <button type="submit" class="btn btn-danger w-100">Cancel</button>
+        </form>
+    </div>
+</td>
+
 
                     </tr>
                 @empty

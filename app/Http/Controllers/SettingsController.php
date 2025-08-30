@@ -16,7 +16,7 @@ class SettingsController extends Controller
             return view('website.settings');
         }
         
-        return view('dashboard.profile');
+        return view('dashboard.setting');
     }
 
     public function update(Request $request)
