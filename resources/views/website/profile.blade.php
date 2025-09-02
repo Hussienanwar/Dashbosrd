@@ -22,12 +22,13 @@
         <div class="col-md-8 mb-4">
             <div class="card shadow-sm h-100">
             <div class="card-body">
-            <h5 class="card-title mb-3">Your Orders</h5>
+            <h5 class="card-title mb-3">Your Orders</h5> 
     <div class="mb-4 border rounded p-3">
     @foreach($orders as $order)
     <h6>Orders#{{ $loop->iteration }} <span class="text-success">{{ ucfirst($order->status) }}</span> /
     <small>Date: {{ $order->created_at->format('d M, Y') }}</small>/
     <strong>Total:</strong> ${{ $order->total }}
+    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info btn-sm">View</a>
     </h6>
 @endforeach
                 </div>

@@ -18,11 +18,11 @@
                         <p><strong>Address:</strong> {{ $order->address }}</p>
                         <p><strong>Status:</strong> 
                             @if($order->status == 'pending')
-                                <span class="badge bg-warning text-dark">Pending</span>
-                            @elseif($order->status == 'completed')
-                                <span class="badge bg-success">Completed</span>
+                                <h4><span class="badge bg-warning text-dark">Pending</span></h4>
+                            @elseif($order->status == 'Accept')
+                                <h4><span class="badge bg-success">Completed</span></h4>
                             @elseif($order->status == 'canceled')
-                                <span class="badge bg-danger">Canceled</span>
+                                <h4><span class="badge bg-danger">Canceled</span></h4>
                             @endif
                         </p>
                         <p><strong>Total:</strong> ${{ number_format($order->total, 2) }}</p>

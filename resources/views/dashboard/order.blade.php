@@ -61,7 +61,7 @@
         <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="w-50">
             @csrf
             @method('PATCH')
-            <input type="hidden" name="status" value="completed">
+            <input type="hidden" name="status" value="Accept">
             <button type="submit" class="btn btn-success w-100">Accept</button>
         </form>
 
